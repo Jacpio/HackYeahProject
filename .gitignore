@@ -22,3 +22,6 @@
 /app/Config/core.php
 /app/Config/database.php
 /vendors/*
+config/app_local.php
+/.idea
+tmp/debug_kit.sqlite
