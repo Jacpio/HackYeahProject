@@ -34,12 +34,10 @@ return function (RouteBuilder $routes): void {
 
         $builder->scope('/api/', function(RouteBuilder $b): void {
             $b->setExtensions(['json']);
-            $b->resources('Users', [
-                'only' => ['index', 'view', 'add', 'edit', 'delete']
-            ]);
+            $b->resources('Users');
+
         });
         $builder->connect('/pages/*', 'Pages::display');
-
 
 
         $builder->fallbacks(DashedRoute::class);
