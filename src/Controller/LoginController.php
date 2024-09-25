@@ -91,14 +91,21 @@ class LoginController extends AppController
 
     public function getInformation($id = null)
     {
-        $user = $this->fetchTable('Users')->get($id);
-
-        if ($id == null) {
-            return $this->response
-                ->withStatus(400)
-                ->withStringBody(json_encode(['message' => 'Invalid query']));
-        }
-        $this->request->getHeader('Authorization', $user->token);
-        return $this->response->withStatus(200)->withStringBody(json_encode($user));
+        $token = $this->request->getHeader('Authorization');
+        if ($id !== null && count($token) > 0) {
+            $user = $this->Users->get($id);
+            if ($user->token != null) {
+                if ($user->token == $token[0]) {
+                    return $this->response->withStatus(200)->withStringBody(json_encode($user));
+                } else {
+                    return $this->response->withStatus(401)
+                        ->withStringBody(json_encode(["message" => "Invalid ID or Token"]));
+                }
+            } else {
+                return $this->response->withStatus(404)->withStringBody(json_encode(['message' => 'User has not been found']));
+            }
+        } else return $this->response
+            ->withStatus(400)
+            ->withStringBody(json_encode(['message' => 'Invalid query']));
     }
 }
