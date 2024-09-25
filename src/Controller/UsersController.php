@@ -23,7 +23,8 @@ class UsersController extends AppController
         $this->response = $this->response->withHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
             ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-            ->withHeader('Access-Control-Allow-Credentials', 'true');
+            ->withHeader('Access-Control-Allow-Credentials', 'true')
+            ->withType('application/json');
     }
 
     public function viewClasses(): array
@@ -42,11 +43,11 @@ class UsersController extends AppController
 
         $this->set(compact('users'));
         if ($users->count() !== 0) {
-            return $this->response->withType('application/json')
+            return $this->response
                 ->withStatus(200)
                 ->withStringBody(json_encode($users));
         } else {
-            return $this->response->withType('application/json')
+            return $this->response
                 ->withStatus(404)
                 ->withStringBody(json_encode(['message' => "Users have not been found"]));
         }
@@ -64,11 +65,11 @@ class UsersController extends AppController
         $user = $this->Users->find()->select(['id', 'username', 'points'])->where(['id' => $id])
             ->enableHydration(true)->first();
         if ($user != null) {
-            return $this->response->withType('application/json')
+            return $this->response
                 ->withStatus(200)
                 ->withStringBody(json_encode($user));
         } else {
-            return $this->response->withType('application/json')
+            return $this->response
                 ->withStatus(404)
                 ->withStringBody(json_encode(['message' => "User has not been found"]));
         }
@@ -83,11 +84,11 @@ class UsersController extends AppController
             $user->points = 0;
             $user->verified = 0;
             if ($this->Users->save($user)) {
-                return $this->response->withType('application/json')
+                return $this->response
                     ->withStatus(201)
                     ->withStringBody(json_encode(["message" => "User has been created"]));
             } else {
-                return $this->response->withType('application/json')
+                return $this->response
                     ->withStatus(400)
                     ->withStringBody(json_encode(["message" => "User has not been created"]));
             }
@@ -112,16 +113,16 @@ class UsersController extends AppController
         try {
             $user = $this->Users->get($id);
         } catch (RecordNotFoundException $exception) {
-            return $this->response->withType('application/json')
+            return $this->response
                 ->withStatus(404)
                 ->withStringBody(json_encode(["message" => "User have not been found"]));
         }
         if ($this->Users->delete($user)) {
-            return $this->response->withType('application/json')
+            return $this->response
                 ->withStatus(200)
                 ->withStringBody(json_encode(["message" => "User have been deleted"]));
         } else {
-            return $this->response->withType('application/json')
+            return $this->response
                 ->withStatus(400)
                 ->withStringBody(json_encode(["message" => "User have not been deleted"]));
         }
