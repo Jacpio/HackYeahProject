@@ -93,7 +93,9 @@ class UsersController extends AppController
                     ->withStringBody(json_encode(["message" => "User has not been created"]));
             }
         } else {
-            throw new BadMethodCallException();
+            return $this->response
+                ->withStatus(405)
+                ->withStringBody(json_encode(["message" => "Bad method request"]));
         }
     }
 

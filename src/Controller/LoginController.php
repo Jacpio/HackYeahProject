@@ -36,7 +36,6 @@ class LoginController extends AppController
 
     public function getToken(): Response
     {
-
         $this->request->allowMethod(['post']);
         try {
             $user = $this->request->getData();
@@ -64,18 +63,23 @@ class LoginController extends AppController
                     ->withStringBody(json_encode(['message' => 'Something went wrong']));
             }
             return $this->response->withStatus(200)
-                ->withHeader('X-Expires-After',  '3600')
+                ->withHeader('X-Expires-After', '3600')
                 ->withDisabledCache()
                 ->withStringBody(json_encode(['token' => $token, 'userdata' => $userWithToken]));
         } else {
             return $this->response->withStatus(401)
                 ->withStringBody(json_encode(['message' => 'Invalid username or password']));
         }
-
     }
 
-    public function deleteToken()
+    public function deleteToken($id = null)
     {
+        if ($id !== null) {
+            $this->request->getHeader('Authorization');
+            $this->response->withStatus(200)->withStringBody(json_encode(['message' => 'Udalo sie']));
+        } else return $this->response
+            ->withStatus(400)
+            ->withStringBody(json_encode(['message' => 'Invalid query']));
 
     }
 
