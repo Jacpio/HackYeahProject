@@ -91,6 +91,14 @@ class LoginController extends AppController
 
     public function getInformation($id = null)
     {
+        $user = $this->fetchTable('Users')->get($id);
 
+        if ($id == null) {
+            return $this->response
+                ->withStatus(400)
+                ->withStringBody(json_encode(['message' => 'Invalid query']));
+        }
+        $this->request->getHeader('Authorization', $user->token);
+        return $this->response->withStatus(200)->withStringBody(json_encode($user));
     }
 }
