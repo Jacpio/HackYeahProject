@@ -72,12 +72,29 @@ class LoginController extends AppController
         }
     }
 
-    public function deleteToken($id = null)
+    public function deleteToken($id = null): Response
     {
-        if ($id !== null) {
-            $this->request->getHeader('Authorization');
-            $this->response->withStatus(200)
-                ->withStringBody(json_encode(['message' => 'Udalo sie']));
+        $token = $this->request->getHeader('Authorization');
+        if ($id !== null && count($token) > 0) {
+            $user = $this->Users->get($id);
+            if ($user->token != null) {
+                if ($user->token == $token[0]) {
+                    $userWithoutToken = $this->Users->patchEntity($user, ['token' => null]);
+                    if ($this->Users->save($userWithoutToken)) {
+                        return $this->response->withStatus(200)
+                            ->withStringBody(json_encode(['message' => 'Token has been deleted']));
+                    } else {
+                        return $this->response
+                            ->withStatus(500)
+                            ->withStringBody(json_encode(['message' => 'Internal Server Error']));
+                    }
+                } else {
+                    return $this->response->withStatus(401)
+                        ->withStringBody(json_encode(["message" => "Invalid ID or Token"]));
+                }
+            } else {
+                return $this->response->withStatus(404)->withStringBody(json_encode(['message' => 'User has not been found']));
+            }
         } else return $this->response
             ->withStatus(400)
             ->withStringBody(json_encode(['message' => 'Invalid query']));
@@ -86,7 +103,35 @@ class LoginController extends AppController
 
     public function editName($id = null)
     {
-
+        $token = $this->request->getHeader('Authorization');
+        if ($id !== null && count($token) > 0) {
+            $user = $this->Users->get($id);
+            if ($user->token != null) {
+                if ($user->token == $token[0]) {
+                    $newUserName = $this->request->getData('username');
+                    if ($newUserName == null) {
+                        return $this->response->withStatus(400)
+                            ->withStringBody(json_encode(['message' => 'Invalid query']));
+                    } else {
+                        $this->Users->patchEntity($user, ['username' => $newUserName]);
+                        if ($this->Users->save($user)) {
+                            return $this->response->withStatus(200)
+                            ->withStringBody(json_encode(["message" => "Name has been updated to " . $newUserName]));
+                        }else{
+                            return $this->response->withStatus(500)
+                                ->withStringBody(json_encode(["message" => "Internal Server Error"]));
+                        }
+                    }
+                } else {
+                    return $this->response->withStatus(401)
+                        ->withStringBody(json_encode(["message" => "Invalid ID or Token"]));
+                }
+            } else {
+                return $this->response->withStatus(404)->withStringBody(json_encode(['message' => 'User has not been found']));
+            }
+        } else return $this->response
+            ->withStatus(400)
+            ->withStringBody(json_encode(['message' => 'Invalid query']));
     }
 
     public function getInformation($id = null)
