@@ -76,7 +76,8 @@ class LoginController extends AppController
     {
         if ($id !== null) {
             $this->request->getHeader('Authorization');
-            $this->response->withStatus(200)->withStringBody(json_encode(['message' => 'Udalo sie']));
+            $this->response->withStatus(200)
+                ->withStringBody(json_encode(['message' => 'Udalo sie']));
         } else return $this->response
             ->withStatus(400)
             ->withStringBody(json_encode(['message' => 'Invalid query']));
