@@ -47,6 +47,11 @@ class User extends Entity
      *
      * @var list<string>
      */
+    protected function _setPassword(string $password){
+        if (strlen($password) > 0) {
+            return password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
+        }
+    }
     protected array $_hidden = [
         'password',
         'token',

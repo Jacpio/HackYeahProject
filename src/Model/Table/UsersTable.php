@@ -67,6 +67,7 @@ class UsersTable extends Table
 
         $validator
             ->scalar('password')
+            ->maxLength('password', 60)
             ->requirePresence('password', 'create')
             ->notEmptyString('password');
 
@@ -82,7 +83,7 @@ class UsersTable extends Table
 
         $validator
             ->scalar('token')
-            ->maxLength('token', 20)
+            ->maxLength('token', 24)
             ->allowEmptyString('token');
 
         $validator
@@ -90,7 +91,7 @@ class UsersTable extends Table
             ->allowEmptyString('verified');
         $validator
             ->integer('permission_level')
-            ->requirePresence('permission_level')
+            ->requirePresence('permission_level','create')
             ->notEmptyString('permission_level');
 
         return $validator;
@@ -109,5 +110,10 @@ class UsersTable extends Table
         $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
 
         return $rules;
+    }
+
+    public function findByUsername(string $username)
+    {
+        return $this->find()->where(['username' => $username])->enableHydration(true)->first();
     }
 }
