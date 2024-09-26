@@ -83,12 +83,12 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'host' => 'localhost',
-            'port' => 25,
-            'username' => null,
-            'password' => null,
-            'client' => null,
-            'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
+            'host' => 'smtp.mailersend.net',
+            'port' => 587,
+            'username' => 'MS_JDADuV@trial-3vz9dlepqmp4kj50.mlsender.net',
+            'password' => 'n3fbuITmoXTWa1eE',
+            'className' => 'Smtp',
+            'tls' => true,
         ],
     ],
 ];

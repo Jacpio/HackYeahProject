@@ -34,7 +34,7 @@ return function (RouteBuilder $routes): void {
 
         $builder->scope('/api/', function(RouteBuilder $b): void {
             $b->setExtensions(['json']);
-
+            $b->connect('/verifyMail/{code}', ['controller' => 'Users', 'action' => 'confirmEmail', '_method' => 'GET'])->setPass(['code']);
             $b->connect('/users',['controller' => 'Users', 'action' => 'index', '_method' => 'GET']);
             $b->connect('/users',['controller' => 'Users', 'action' => 'options', '_method' => 'OPTIONS']);
             $b->connect('/users',['controller' => 'Users', 'action' => 'add', '_method' => 'POST']);
