@@ -153,4 +153,8 @@ class LoginController extends AppController
             ->withStatus(400)
             ->withStringBody(json_encode(['message' => 'Invalid query']));
     }
+    public function options() : Response
+    {
+        return $this->response;
+    }
 }
