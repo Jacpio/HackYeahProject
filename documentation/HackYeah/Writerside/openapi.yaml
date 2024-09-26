@@ -1,0 +1,306 @@
+openapi: 3.0.2
+servers:
+  - url: /api
+info:
+  description: |-
+    This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about
+    Swagger at [http://swagger.io](http://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!
+    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
+    That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
+
+    Some useful links:
+    - [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)
+    - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
+  version: 1.0.17
+  title: HackYeah Dokumentacja - OpenAPI 3.0
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: nie@mam.maila
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: user
+    description: Operations about user
+paths:
+  /users:
+    post:
+      tags:
+        - user
+      summary: Tworzenie użytkownika
+      description: Tworzenie użytkownika
+      operationId: createUser
+      parameters:
+        - name: username
+          in: query
+          description: Nazwa
+          required: true
+          schema:
+            type: string
+        - name: email
+          in: query
+          description: Email
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: Hasło
+          required: true
+          schema:
+            type: string
+        - name: two_factor
+          in: query
+          description: Podwójne uwierzytelnianie (0 lub 1)
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '201':
+          description: OK
+        '400':
+          description: Złe zapytanie
+        
+      requestBody:
+        description: Created user object
+        content:
+          type: string
+    get:
+      tags:
+        - user
+      summary: Get users
+      description: Pobieranie wszystkich danych publicznych użytkowników
+      operationId: getUsers
+      responses:
+        '200':
+          description: Znaleziono użytkowników
+        '400':
+          description: Zły token/zapytanie
+        '404':
+          description: Brak użytkowników
+  /login/{username}:
+    get:
+      tags:
+        - user
+      summary: getInformation
+      operationId: getInformation
+      parameters:
+        - name: token
+          in: header
+          description: Token uwierzytelniania
+          required: true
+          schema:
+            type: Strong
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Źle skonstruowane zapytanie/Zły token
+        '404':
+          description: Nie znaleziono użytkownika
+        
+    put:
+      tags:
+        - user
+      summary: Update user
+      description: Możesz tylko zmienić użytkownika, gdy podasz token
+      operationId: updateUser
+      parameters:
+        - name: token
+          in: header
+          description: token uwierzytelniania
+          required: true
+          schema:
+            type: string
+        - name: username
+          in: path
+          description: Nazwa użytkownika
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Zedytowano użytkownika
+        '400':
+          description: Źle skonstruowane zapytanie
+        '404':
+          description: Zła nazwa użytkownika
+        
+
+  /login:
+    delete:
+      tags:
+        - user
+      summary: Wylogowywanie
+      description: 'Wylogowywanie'
+      operationId: logoutUser
+      parameters:
+        - name: token
+          in: header
+          description: Token uwierzytelniania
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Źle skonstruowane zapytanie
+
+        '404':
+          description: Źle podany token
+        
+    post:
+      tags:
+        - user
+      summary: Logowanie do systemu
+      description: 'Logowanie do systemu'
+      operationId: loginUser
+      parameters:
+        - name: username
+          in: query
+          description: Nazwa użytkownika
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: Hasło
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Expires-After:
+              description: Czas ile trwa token
+              content:
+                type: string
+        '400':
+          description: Źle skonstruowane zapytanie
+        '401':
+          description: Zła nazwa użytkownika/Złe hasło
+        '500':
+            description: Wewnętrzny błąd serwera
+
+  /users/{id}:
+    delete:
+      tags:
+        - user
+      summary: Delete user
+      description: Możesz usunąć użytkownika jedynie gdy posiada token
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          description: Identyfikator użytkownika
+          required: true
+          schema:
+            type: string
+        - name: token
+          in: header
+          description: Token uwierzytelniania użytkownika
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Znaleziono użytkownika
+        '400':
+          description: Zły token/zapytanie
+        '404':
+          description: Nie znaleziono użytkownika
+        
+
+    get:
+      tags:
+        - user
+      summary: Get user by id
+      description: ''
+      operationId: getUserByName
+      parameters:
+        - name: id
+          in: path
+          description: Identyfikator użytkownika
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Źle skontruowane zapytanie
+        '404':
+          description: Nie znaleziono użytkownika
+
+components:
+  schemas:
+    User:
+      x-swagger-router-model: io.swagger.petstore.model.User
+      properties:
+        username:
+          type: string
+          example: Waleń
+        email:
+          type: string
+          example: lubimyHejjj@email.com
+        password:
+          type: string
+          example: super_tajne_haslo1234
+      xml:
+        name: user
+      type: object
+    Tag:
+      x-swagger-router-model: io.swagger.petstore.model.Tag
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+      xml:
+        name: tag
+      type: object
+    ApiResponse:
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+      xml:
+        name: '##default'
+      type: object
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              typeUrl:
+                type: string
+              value:
+                type: string
+        message:
+          type: string
+  securitySchemes:
+    petstore_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: 'https://petstore.swagger.io/oauth/authorize'
+          scopes:
+            'write:pets': modify pets in your account
+            'read:pets': read your pets
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header

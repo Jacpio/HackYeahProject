@@ -1,0 +1,422 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-http.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-json.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-none.min.js"></script><style>
+        .api-block {
+            padding: 15px 15px 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        
+
+        .api-code-green {
+            color: #4dbb5f;
+        }
+        
+
+        .api-code-red {
+            color: #fa5c4a;
+        }
+        
+
+        .api-content-type {
+            font-size: 12px;
+        }
+        
+
+        .api-endpoint {
+            display:inline-flex;
+            align-items:center;
+            padding:8px 16px;
+            margin-bottom:12px;
+            background-color: rgba(25, 25, 28, .05);
+            border-radius:8px;
+        }
+        
+
+        .api-grey-block {
+            background-color: rgba(25, 25, 28, .05);
+        }
+        
+
+        .api-grey-text {
+            color: #67686b;
+        }
+        
+
+        .api-header {
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+
+        .api-path {
+            margin-left: 15px;
+        }
+        
+
+        .api-required {
+            color: #307fff;
+            margin-left: 8px;
+        }
+        
+
+        .api-section {
+            width: 75%;
+            margin-bottom: 12px;
+        }
+        
+
+        .api-status-code {
+            margin-right: 8px;
+        }
+        
+
+        .api-white-block {
+            background-color: white;
+        }
+        
+
+        .article {
+            position: relative;
+            padding-bottom: 24px;
+        }
+        
+
+        .bordered-element-rounded {
+            border: 1px solid #c4c4c4;
+            border-radius: 7px;
+            overflow: hidden;
+        }
+        
+
+        .code-block {
+            overflow: hidden;
+            position: relative;
+            padding: 0;
+            border-radius: 8px;
+            font-variant-ligatures: none;
+            background-color: rgba(25, 25, 28, .05);
+            word-break: break-all;
+        }
+        
+
+        .control {
+            color: #19191c;
+            font-size: 16px;
+            font-weight: 670;
+        }
+        
+
+        .detached {
+            margin-block-start: 0;
+            margin-block-end: 0;
+            margin-bottom: 8px;
+        }
+        
+
+        .emphasis {
+            color: inherit;
+            font-weight: inherit;
+            font-style: italic;
+        }
+        
+
+        .flex {
+            display: flex;
+        }
+        
+
+        .image {
+            max-width: 100%;
+            max-height: 90vh;
+            height: auto;
+        }
+        
+
+        .image-container {
+            max-width: 100vw;
+        }
+        
+
+        .inline-icon {
+            vertical-align: middle;
+        }
+        
+
+        .main-title {
+            padding-bottom: 24px;
+            margin-top: 0;
+            font-size: 40px;
+            margin-block-start: 0;
+            margin-block-end: 0;
+        }
+        
+
+        .note {
+            background: rgba(77, 187, 95, .2);
+        }
+        
+
+        .prism {
+            page-break-inside: avoid;
+        }
+        
+        /* PrismJS 1.29.0
+https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascript+abap+abnf+actionscript+ada+agda+al+antlr4+apacheconf+apex+apl+applescript+aql+arduino+arff+armasm+arturo+asciidoc+aspnet+asm6502+asmatmel+autohotkey+autoit+avisynth+avro-idl+awk+bash+basic+batch+bbcode+bbj+bicep+birb+bison+bnf+bqn+brainfuck+brightscript+bro+bsl+c+csharp+cpp+cfscript+chaiscript+cil+cilkc+cilkcpp+clojure+cmake+cobol+coffeescript+concurnas+csp+cooklang+coq+crystal+css-extras+csv+cue+cypher+d+dart+dataweave+dax+dhall+diff+django+dns-zone-file+docker+dot+ebnf+editorconfig+eiffel+ejs+elixir+elm+etlua+erb+erlang+excel-formula+fsharp+factor+false+firestore-security-rules+flow+fortran+ftl+gml+gap+gcode+gdscript+gedcom+gettext+gherkin+git+glsl+gn+linker-script+go+go-module+gradle+graphql+groovy+haml+handlebars+haskell+haxe+hcl+hlsl+hoon+http+hpkp+hsts+ichigojam+icon+icu-message-format+idris+ignore+inform7+ini+io+j+java+javadoc+javadoclike+javastacktrace+jexl+jolie+jq+jsdoc+js-extras+json+json5+jsonp+jsstacktrace+js-templates+julia+keepalived+keyman+kotlin+kumir+kusto+latex+latte+less+lilypond+liquid+lisp+livescript+llvm+log+lolcode+lua+magma+makefile+markdown+markup-templating+mata+matlab+maxscript+mel+mermaid+metafont+mizar+mongodb+monkey+moonscript+n1ql+n4js+nand2tetris-hdl+naniscript+nasm+neon+nevod+nginx+nim+nix+nsis+objectivec+ocaml+odin+opencl+openqasm+oz+parigp+parser+pascal+pascaligo+psl+pcaxis+peoplecode+perl+php+phpdoc+php-extras+plant-uml+plsql+powerquery+powershell+processing+prolog+promql+properties+protobuf+pug+puppet+pure+purebasic+purescript+python+qsharp+q+qml+qore+r+racket+cshtml+jsx+tsx+reason+regex+rego+renpy+rescript+rest+rip+roboconf+robotframework+ruby+rust+sas+sass+scss+scala+scheme+shell-session+smali+smalltalk+smarty+sml+solidity+solution-file+soy+sparql+splunk-spl+sqf+sql+squirrel+stan+stata+iecst+stylus+supercollider+swift+systemd+t4-templating+t4-cs+t4-vb+tap+tcl+tt2+textile+toml+tremor+turtle+twig+typescript+typoscript+unrealscript+uorazor+uri+v+vala+vbnet+velocity+verilog+vhdl+vim+visual-basic+warpscript+wasm+web-idl+wgsl+wiki+wolfram+wren+xeora+xml-doc+xojo+xquery+yaml+yang+zig&plugins=highlight-keywords */
+code[class*=language-],pre[class*=language-]{color:#000;background:0 0;text-shadow:0 1px #fff;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;font-size:1em;text-align:left;white-space:pre-wrap;word-spacing:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}code[class*=language-] ::-moz-selection,code[class*=language-]::-moz-selection,pre[class*=language-] ::-moz-selection,pre[class*=language-]::-moz-selection{text-shadow:none;background:#b3d4fc}code[class*=language-] ::selection,code[class*=language-]::selection,pre[class*=language-] ::selection,pre[class*=language-]::selection{text-shadow:none;background:#b3d4fc}@media print{code[class*=language-],pre[class*=language-]{text-shadow:none}}pre[class*=language-]{padding:16px;margin:0;overflow:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#f5f2f0}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#708090}.token.punctuation{color:#999}.token.namespace{opacity:.7}.token.boolean,.token.constant,.token.deleted,.token.number,.token.property,.token.symbol,.token.tag{color:#905}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#690}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url{color:#9a6e3a;background:hsla(0,0%,100%,.5)}.token.atrule,.token.attr-value,.token.keyword{color:#07a}.token.class-name,.token.function{color:#dd4a68}.token.important,.token.regex,.token.variable{color:#e90}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}
+
+        
+
+        .prompt {
+            flex-direction: row;
+            letter-spacing: .0015em;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        
+
+        .prompt-content {
+            padding: 15px;
+            overflow: hidden;
+            flex: 1 1 auto;
+        }
+        
+
+        .prompt-content-p p {
+            margin-block-start: 0;
+            margin-block-end: 0;
+        }
+        
+
+        .prompt-icon {
+            flex: 0 0 auto;
+            margin-left: 15px;
+            margin-top: 15px;
+            fill: currentcolor;
+            width: 24px;
+            height: 24px;
+        }
+        
+
+        :root {
+            width: 95%;
+            max-width: 95vw;
+            padding: 0 0 0 30px;
+        }
+        
+        body {
+            font-family: JetBrains Sans,serif;
+        }
+        
+        a {
+            overflow-wrap: anywhere;
+            width: 100vw;
+        }
+        
+        
+        @font-face {
+            font-family: JetBrains Sans;
+            src: url(https://resources.jetbrains.com/storage/jetbrains-sans/JetBrainsSans-Light.woff2) format("woff2"), url(https://resources.jetbrains.com/storage/jetbrains-sans/JetBrainsSans-Light.woff) format("woff");
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: JetBrains Sans;
+            src: url(https://resources.jetbrains.com/storage/jetbrains-sans/JetBrainsSans-Regular.woff2) format("woff2"), url(https://resources.jetbrains.com/storage/jetbrains-sans/JetBrainsSans-Regular.woff) format("woff");
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: JetBrains Sans;
+            src: url(https://resources.jetbrains.com/storage/jetbrains-sans/JetBrainsSans-SemiBold.woff2) format("woff2"), url(https://resources.jetbrains.com/storage/jetbrains-sans/JetBrainsSans-SemiBold.woff) format("woff");
+            font-weight: 600;
+            font-style: normal;
+        }
+        
+        
+        code {
+            display: inline;
+            word-break: break-word;
+            font-size: 15px;
+            line-height: inherit;
+            font-variant-ligatures: none;
+            font-family: JetBrains Sans,monospace;
+            white-space: pre-line;
+            overflow-wrap: break-word;
+        }
+        
+        figcaption {
+            margin-top: 5px;
+        }
+        
+        h2 {
+            padding-top: 16px;
+            padding-bottom: 8px;
+            margin-block-start: 0;
+            margin-block-end: 0;
+        }
+        
+        h3 {
+            padding-top: 8px;
+            padding-bottom: 8px;
+            margin-block-start: 0;
+            margin-block-end: 0;
+        }
+        
+        h4 {
+            padding-top: 4px;
+            padding-bottom: 8px;
+            margin-block-start: 0;
+            margin-block-end: 0;
+        }
+        
+        p {
+            padding: 0;
+            border: 0;
+            line-height: 25px;
+            margin-block-start: 0;
+            margin-block-end: 0;
+            padding-bottom: 8px;
+        }
+        
+        div {
+            display: block;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            page-break-inside: avoid;
+        }
+        
+        th, td {
+            border: 1px solid #c4c4c4;
+            padding: 10px;
+            text-align: left;
+            word-break: break-all;
+        }
+        
+        .entry {
+            display: grid;
+            grid-template-columns: auto max-content;
+            grid-template-areas: "chapter page";
+            align-items: end;
+            gap: 0 .25rem;
+            line-height: 25px;
+        }
+        
+        .toc-link-container{
+            grid-area: chapter;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .toc-link{
+            text-decoration: none;
+            color: black;
+        }
+        
+        .toc-link-container::after {
+            position: absolute;
+            padding-left: .25ch;
+            content: " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
+            ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
+            ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ";
+            text-align: right;
+        }
+        
+        .page {
+            grid-area: page;
+            width: 30px;
+            text-align: right;
+        }
+        
+
+        .topic {
+            page-break-before: always;
+        }
+        </style><title>pdfSourceADOC</title></head><body><div><section class="topic"><div><article class="article"><h1 class="main-title">Table of contents</h1><div class="entry"><div class="toc-link-container"><a class="toc-link" href="#920783374">API HackYeah</a></div><div class="page">2</div></div><div class="entry"><div class="toc-link-container"><a class="toc-link" href="#-1521149880">API Szybki Tutorial</a></div><div class="page">3</div></div><div class="entry"><div class="toc-link-container"><a class="toc-link" href="#633564984">Endpointy</a></div><div class="page">4</div></div><div class="entry"><div class="toc-link-container"><a class="toc-link" href="#1128157660">Tworzenie użytkownika</a></div><div class="page">5</div></div><div class="entry"><div class="toc-link-container"><a class="toc-link" href="#499909261">Usuwanie użytkownika</a></div><div class="page">7</div></div><div class="entry"><div class="toc-link-container"><a class="toc-link" href="#471905602">Znajdywanie danych (publicznych) użytkownika</a></div><div class="page">9</div></div><div class="entry"><div class="toc-link-container"><a class="toc-link" href="#-319361887">Logowanie</a></div><div class="page">11</div></div><div class="entry"><div class="toc-link-container"><a class="toc-link" href="#-525688876">Wylogowywanie</a></div><div class="page">13</div></div><div class="entry"><div class="toc-link-container"><a class="toc-link" href="#1048285743">Edytowanie nazwy użytkownika</a></div><div class="page">15</div></div><div class="entry"><div class="toc-link-container"><a class="toc-link" href="#-1794125678">Pobieranie informacji (prywatnych) użytkownika</a></div><div class="page">17</div></div></article></div></section><section class="topic"><div><article class="article"><h1 class="main-title" id="920783374">API HackYeah</h1><section><h2 id="920783374#wprowadzenie" data-toc="wprowadzenie#api-docs.md-wprowadzenie">Wprowadzenie</h2><p id="920783374#-d59ghl_5">W tym pliku PDF znajdziesz wszystkie potrzebne endpointy i jak używać tego API</p></section><section><h2 id="920783374#base-url-podstawowe-url" data-toc="base-url-podstawowe-url#api-docs.md-base-url-podstawowe-url">Base URL - Podstawowe URL</h2><p id="920783374#-d59ghl_6"><span class="emphasis" id="920783374#-d59ghl_7"><span class="control" id="920783374#-d59ghl_8">IP4_Adress:8765/api/</span></span></p></section></article></div></section><section class="topic"><div><article class="article"><h1 class="main-title" id="-1521149880">API Szybki Tutorial</h1><p id="-1521149880#pz9fpp_3">Znajdziesz tutaj poradnik krok po kroku jak obsługiwać to API</p><section><h2 id="-1521149880#authentication-uwierzytelnianie" data-toc="authentication-uwierzytelnianie#API-quickstart.md-authentication-uwierzytelnianie">Authentication - Uwierzytelnianie</h2><section><h3 id="-1521149880#sposobem-uwierzytelniania-jest-podawanie-tokenu-w-ciele-zapytania-token-b-dzie-zwracany-podczas-logowania" data-toc="sposobem-uwierzytelniania-jest-podawanie-tokenu-w-ciele-zapytania-token-b-dzie-zwracany-podczas-logowania#API-quickstart.md-sposobem-uwierzytelniania-jest-podawanie-tokenu-w-ciele-zapytania-token-b-dzie-zwracany-podczas-logowania">Sposobem uwierzytelniania jest podawanie tokenu w ciele zapytania. Token będzie zwracany, podczas logowania</h3></section></section><section><h2 id="-1521149880#wysy-anie-da" data-toc="wysy-anie-da#API-quickstart.md-wysy-anie-da">Wysyłanie żądań</h2><div class="detached code-block" id="-1521149880#pz9fpp_8"><pre><code class="language-http">GET /api/users/test HTTP/1.1
+Host: IP4_Adress:8765</code></pre></div><p id="-1521149880#pz9fpp_9">Musi zwr&oacute;cić status: 200</p></section><section><h2 id="-1521149880#response-handling-obs-uga-odpowiedzi" data-toc="response-handling-obs-uga-odpowiedzi#API-quickstart.md-response-handling-obs-uga-odpowiedzi">Response Handling - Obsługa odpowiedzi</h2><div class="detached code-block" id="-1521149880#pz9fpp_10"><pre><code class="language-none">status: 200 - OK
+status: 201 - Zapisano wysłany zasób
+status: 400 - Nie prawidłowe zapytanie
+status: 401 - Nie autoryzowany dostęp
+status: 403 - Zabroniony dostęp do zasobów
+status: 404 - Nie znaleziono zasobów
+status: 405 - Nie dozwolona metoda
+status: 500 - Wewnętrzny błąd serwera</code></pre></div></section></article></div></section><section class="topic"><div><article class="article"><h1 class="main-title" id="633564984">Endpointy</h1><p id="633564984#ynin25_3">Tutaj znajdziesz wszystkie endpointy</p><blockquote class="prompt flex bordered-element-rounded note detached">
+  <svg xmlns="http://www.w3.org/2000/svg" class="prompt-icon">
+    <path d="M21 12a9 9 0 1 1-9-9 9 9 0 0 1 9 9zM10.5 7.5A1.5 1.5 0 1 0 12 6a1.5 1.5 0 0 0-1.5 1.5zm-.5 3.54v1h1V18h2v-6a.96.96 0 0 0-.96-.96z"></path>
+  </svg>
+  <div class="prompt-content prompt-content-p"><p id="633564984#ynin25_5">Tutaj znajdziesz wszystko na temat API.</p></div>
+</blockquote>
+</article></div></section><section class="topic"><div><article class="article"><h1 class="main-title" id="1128157660">Tworzenie użytkownika</h1><div class="api-endpoint"><img class="inline-icon image image-container" src="https://img.shields.io/badge/-POST-28B8A0" title="POST method"><span class="api-path">/users</span></div><p id="1128157660#n41dll_8">Tworzenie użytkownika</p><section><h2 id="1128157660#n41dll_9" data-toc="n41dll_9#Create-user.md-n41dll_9">Request parameters</h2><div class="detached"><div class="api-section"><p><b>Query</b></p><div class="api-block api-grey-block"><p class="api-header"><b class="api-status-code">username</b><span class="api-grey-text">object</span><span class="api-required">required</span></p><p>Nazwa</p><p class="api-content-type">Child attributes</p></div><div class="api-block api-grey-block"><p class="api-header"><b class="api-status-code">email</b><span class="api-grey-text">object</span><span class="api-required">required</span></p><p>Email</p><p class="api-content-type">Child attributes</p></div><div class="api-block api-grey-block"><p class="api-header"><b class="api-status-code">password</b><span class="api-grey-text">object</span><span class="api-required">required</span></p><p>Hasło</p><p class="api-content-type">Child attributes</p></div><div class="api-block api-grey-block"><p class="api-header"><b class="api-status-code">two_factor</b><span class="api-grey-text">object</span></p><p>Podwójne uwierzytelnianie (0 lub 1)</p><p class="api-content-type">Child attributes</p></div></div><div><p><b>JSON example</b></p><div class="code-block detached" id="n41dll_13"><pre><code class="language-json">{
+  &quot;username&quot;: &quot;Waleń&quot;,
+  &quot;email&quot;: &quot;LubimyHejj@pie.pl&quot;,
+  &quot;password&quot;: &quot;Super_tajne_hasło&quot;
+  &quot;two_factor&quot;: 1 (or 0)
+}</code></pre></div></div></div></section><section><h2 id="1128157660#n41dll_10" data-toc="n41dll_10#Create-user.md-n41dll_10">Responses</h2><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-green">201</span><b>OK</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>OK</p></div><div><p><b>201</b></p><div class="code-block detached" id="n41dll_17"><pre><code class="language-json">{
+    &quot;message&quot;: &quot;User have been created&quot;
+}</code></pre></div></div></section><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-red">400</span><b>Złe zapytanie</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>Złe zapytanie</p></div><div><p><b>400</b></p><div class="code-block detached" id="n41dll_19"><pre><code class="language-json">{
+    &quot;message&quot;: &quot;Invalid query&quot;
+}</code></pre></div></div></section></section></article></div></section><section class="topic"><div><article class="article"><h1 class="main-title" id="499909261">Usuwanie użytkownika</h1><div class="api-endpoint"><img class="inline-icon image image-container" src="https://img.shields.io/badge/-DELETE-FF318C" title="DELETE method"><span class="api-path">/users/{id}</span></div><p id="499909261#-q3iwc8_10">Możesz usunąć użytkownika jedynie gdy posiada token</p><section><h2 id="499909261#-q3iwc8_11" data-toc="-q3iwc8_11#Delete-user.md--q3iwc8_11">Request parameters</h2><div class="detached"><div class="api-section"><p><b>Path</b></p><div class="api-block api-grey-block"><p class="api-header"><b class="api-status-code">id</b><span class="api-grey-text">object</span><span class="api-required">required</span></p><p>Identyfikator użytkownika</p><p class="api-content-type">Child attributes</p></div></div><div class="api-section"><p><b>Header</b></p><div class="api-block api-grey-block"><p class="api-header"><b class="api-status-code">token</b><span class="api-grey-text">object</span><span class="api-required">required</span></p><p>Token uwierzytelniania użytkownika</p><p class="api-content-type">Child attributes</p></div></div><div><p><b>HTTP</b></p><div class="code-block detached" id="-q3iwc8_16"><pre><code class="language-json">GET /api/users/{username} HTTP/1.1
+Host: IP4_Adress:8765
+Authorization: {token}</code></pre></div></div></div></section><section><h2 id="499909261#-q3iwc8_12" data-toc="-q3iwc8_12#Delete-user.md--q3iwc8_12">Responses</h2><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-green">200</span><b>Znaleziono użytkownika</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>Znaleziono użytkownika</p></div><div><p><b>200</b></p><div class="code-block detached" id="-q3iwc8_21"><pre><code class="language-json">{
+    &quot;message&quot;: &quot;User has been deleted&quot;
+}</code></pre></div></div></section><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-red">400</span><b>Zły token/zapytanie</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>Zły token/zapytanie</p></div><div><p><b>400</b></p><div class="code-block detached" id="-q3iwc8_23"><pre><code class="language-json">{
+    &quot;message&quot;: &quot;Invalid token or query&quot;
+}</code></pre></div></div></section><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-red">404</span><b>Nie znaleziono użytkownika</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>Nie znaleziono użytkownika</p></div><div><p><b>404</b></p><div class="code-block detached" id="-q3iwc8_25"><pre><code class="language-json">{
+    &quot;message&quot;: &quot;Invalid username&quot;
+}</code></pre></div></div></section></section></article></div></section><section class="topic"><div><article class="article"><h1 class="main-title" id="471905602">Znajdywanie danych (publicznych) użytkownika</h1><div class="api-endpoint"><img class="inline-icon image image-container" src="https://img.shields.io/badge/-GET-167DFF" title="GET method"><span class="api-path">/users/{id}</span></div><section><h2 id="471905602#z9cg7hv_9" data-toc="z9cg7hv_9#Get-user-by-user-name.md-z9cg7hv_9">Request parameters</h2><div class="detached"><div class="api-section"><p><b>Path</b></p><div class="api-block api-grey-block"><p class="api-header"><b class="api-status-code">id</b><span class="api-grey-text">object</span><span class="api-required">required</span></p><p>Identyfikator użytkownika</p><p class="api-content-type">Child attributes</p></div></div></div></section><section><h2 id="471905602#z9cg7hv_10" data-toc="z9cg7hv_10#Get-user-by-user-name.md-z9cg7hv_10">Responses</h2><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-green">200</span><b>OK</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>OK</p></div><div><p><b>200</b></p><div class="code-block detached" id="z9cg7hv_17"><pre><code class="language-json">{
+    &quot;id&quot;: 2137,
+    &quot;username&quot;: &quot;Waleń&quot;,
+    &quot;points&quot;: 420 
+}</code></pre></div></div></section><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-red">400</span><b>Źle skontruowane zapytanie</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>Źle skontruowane zapytanie</p></div><div><p><b>400</b></p><div class="code-block detached" id="z9cg7hv_19"><pre><code class="language-json">{
+    &quot;message&quot;: &quot;Invalid Query&quot;
+}</code></pre></div></div></section><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-red">404</span><b>Nie znaleziono użytkownika</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>Nie znaleziono użytkownika</p></div><div><p><b>404</b></p><div class="code-block detached" id="z9cg7hv_21"><pre><code class="language-json">{
+    &quot;message&quot;: &quot;User has not been found&quot;
+}</code></pre></div></div></section></section></article></div></section><section class="topic"><div><article class="article"><h1 class="main-title" id="-319361887">Logowanie</h1><div class="api-endpoint"><img class="inline-icon image image-container" src="https://img.shields.io/badge/-POST-28B8A0" title="POST method"><span class="api-path">/login</span></div><p id="-319361887#-aaept8_9">Logowanie do systemu</p><section><h2 id="-319361887#-aaept8_10" data-toc="-aaept8_10#Creates-list-of-users-with-given-input-array.md--aaept8_10">Request parameters</h2><div class="detached"><div class="api-section"><p><b>Query</b></p><div class="api-block api-grey-block"><p class="api-header"><b class="api-status-code">username</b><span class="api-grey-text">object</span><span class="api-required">required</span></p><p>Nazwa użytkownika</p><p class="api-content-type">Child attributes</p></div><div class="api-block api-grey-block"><p class="api-header"><b class="api-status-code">password</b><span class="api-grey-text">object</span><span class="api-required">required</span></p><p>Hasło</p><p class="api-content-type">Child attributes</p></div></div></div></section><section><h2 id="-319361887#-aaept8_11" data-toc="-aaept8_11#Creates-list-of-users-with-given-input-array.md--aaept8_11">Responses</h2><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-green">200</span><b>OK</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>OK</p><div class="api-block api-white-block"><p class="api-header"><b class="api-status-code">X-Expires-After (Header)</b><span class="api-grey-text">object</span><span class="api-required">required</span></p><p>Data kiedy token wygasa (UTC)</p><p class="api-content-type">Child attributes</p></div></div><div><p><b>200</b></p><div class="code-block detached" id="-aaept8_18"><pre><code class="language-json">{
+    &quot;id&quot;: 2137,
+    &quot;username&quot; : &quot;Waleń&quot;,
+    &quot;email&quot; : &quot;lubimyHejj@pie.pl&quot;,
+    &quot;points&quot;: 420,
+    &quot;token&quot;: &quot;123217eg27q&quot;
+}</code></pre></div></div></section><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-red">400</span><b>Źle skonstruowane zapytanie</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>Źle skonstruowane zapytanie</p></div><div><p><b>400</b></p><div class="code-block detached" id="-aaept8_20"><pre><code class="language-json">{
+ &quot;message&quot;: &quot;Invalid query&quot;
+}</code></pre></div></div></section><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-red">404</span><b>Zła nazwa użytkownika/Złe hasło</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>Zła nazwa użytkownika/Złe hasło</p></div><div><p><b>404</b></p><div class="code-block detached" id="-aaept8_22"><pre><code class="language-json">{
+ &quot;message&quot;: &quot;Invalid username or password&quot;
+}</code></pre></div></div></section></section></article></div></section><section class="topic"><div><article class="article"><h1 class="main-title" id="-525688876">Wylogowywanie</h1><div class="api-endpoint"><img class="inline-icon image image-container" src="https://img.shields.io/badge/-DELETE-FF318C" title="DELETE method"><span class="api-path">/login</span></div><p id="-525688876#z3dslr5_9">Wylogowywanie</p><section><h2 id="-525688876#z3dslr5_10" data-toc="z3dslr5_10#Logs-user-into-the-system.md-z3dslr5_10">Request parameters</h2><div class="detached"><div class="api-section"><p><b>Header</b></p><div class="api-block api-grey-block"><p class="api-header"><b class="api-status-code">token</b><span class="api-grey-text">object</span><span class="api-required">required</span></p><p>Token uwierzytelniania</p><p class="api-content-type">Child attributes</p></div></div><div><p><b>HTTP</b></p><div class="code-block detached" id="z3dslr5_14"><pre><code class="language-json">GET /api/users/{username} HTTP/1.1
+Host: IP4_Adress:8765
+Authorization: {token}</code></pre></div></div></div></section><section><h2 id="-525688876#z3dslr5_11" data-toc="z3dslr5_11#Logs-user-into-the-system.md-z3dslr5_11">Responses</h2><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-green">200</span><b>OK</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>OK</p></div><div><p><b>200</b></p><div class="code-block detached" id="z3dslr5_19"><pre><code class="language-json">{
+    &quot;message&quot;: &quot;User has been logged out&quot;
+}</code></pre></div></div></section><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-red">400</span><b>Źle skonstruowane zapytanie</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>Źle skonstruowane zapytanie</p></div><div><p><b>400</b></p><div class="code-block detached" id="z3dslr5_21"><pre><code class="language-json">{
+    &quot;message&quot;: &quot;Invalid query&quot;
+}</code></pre></div></div></section><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-red">404</span><b>Źle podany token</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>Źle podany token</p></div><div><p><b>404</b></p><div class="code-block detached" id="z3dslr5_23"><pre><code class="language-json">{
+    &quot;message&quot;: &quot;Invalid token&quot;
+}</code></pre></div></div></section></section></article></div></section><section class="topic"><div><article class="article"><h1 class="main-title" id="1048285743">Edytowanie nazwy użytkownika</h1><div class="api-endpoint"><img class="inline-icon image image-container" src="https://img.shields.io/badge/-PUT-FC801D" title="PUT method"><span class="api-path">/login/{username}</span></div><p id="1048285743#m8ubja_10">Możesz tylko zmienić użytkownika, gdy podasz token</p><section><h2 id="1048285743#m8ubja_11" data-toc="m8ubja_11#Update-user.md-m8ubja_11">Request parameters</h2><div class="detached"><div class="api-section"><p><b>Header</b></p><div class="api-block api-grey-block"><p class="api-header"><b class="api-status-code">token</b><span class="api-grey-text">object</span><span class="api-required">required</span></p><p>token uwierzytelniania</p><p class="api-content-type">Child attributes</p></div></div><div class="api-section"><p><b>Path</b></p><div class="api-block api-grey-block"><p class="api-header"><b class="api-status-code">username</b><span class="api-grey-text">object</span><span class="api-required">required</span></p><p>Nazwa użytkownika</p><p class="api-content-type">Child attributes</p></div></div><div><p><b>HTTP</b></p><div class="code-block detached" id="m8ubja_16"><pre><code class="language-json">GET /api/login/{username} HTTP/1.1
+Host: IP4_Adress:8765
+Authorization: {token}</code></pre></div></div></div></section><section><h2 id="1048285743#m8ubja_12" data-toc="m8ubja_12#Update-user.md-m8ubja_12">Responses</h2><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-green">201</span><b>Zedytowano użytkownika</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>Zedytowano użytkownika</p></div><div><p><b>201</b></p><div class="code-block detached" id="m8ubja_21"><pre><code class="language-json">{
+    &quot;message&quot;: &quot;User has been edited&quot;
+}</code></pre></div></div></section><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-red">400</span><b>Źle skonstruowane zapytanie</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>Źle skonstruowane zapytanie</p></div><div><p><b>400</b></p><div class="code-block detached" id="m8ubja_23"><pre><code class="language-json">{
+    &quot;message&quot;: &quot;Invalid query&quot;
+}</code></pre></div></div></section><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-red">404</span><b>Zła nazwa użytkownika</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>Zła nazwa użytkownika</p></div><div><p><b>404</b></p><div class="code-block detached" id="m8ubja_25"><pre><code class="language-json">{
+    &quot;message&quot;: &quot;Invalid username&quot;
+}</code></pre></div></div></section></section></article></div></section><section class="topic"><div><article class="article"><h1 class="main-title" id="-1794125678">Pobieranie informacji (prywatnych) użytkownika</h1><div class="api-endpoint"><img class="inline-icon image image-container" src="https://img.shields.io/badge/-GET-167DFF" title="GET method"><span class="api-path">/login/{username}</span></div><section><h2 id="-1794125678#-mqsrst_9" data-toc="-mqsrst_9#login-info.md--mqsrst_9">Request parameters</h2><div class="detached"><div class="api-section"><p><b>Header</b></p><div class="api-block api-grey-block"><p class="api-header"><b class="api-status-code">token</b><span class="api-grey-text">object</span><span class="api-required">required</span></p><p>Token uwierzytelniania</p><p class="api-content-type">Child attributes</p></div></div><div><p><b>HTTP</b></p><div class="code-block detached" id="-mqsrst_13"><pre><code class="language-json">GET /api/users/{username} HTTP/1.1
+Host: IP4_Adress:8765
+Authorization: fwhfh27g6dgqw</code></pre></div></div></div></section><section><h2 id="-1794125678#-mqsrst_10" data-toc="-mqsrst_10#login-info.md--mqsrst_10">Responses</h2><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-green">200</span><b>OK</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>OK</p></div><div><p><b>200</b></p><div class="code-block detached" id="-mqsrst_18"><pre><code class="language-json">{
+    &quot;id&quot;: 2137,
+    &quot;username&quot;: &quot;Waleń&quot;,
+    &quot;email&quot;: &quot;LubimyHejj@pie.pl&quot;,
+    &quot;verified&quot;: 1 (or 0)
+}</code></pre></div></div></section><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-red">400</span><b>Źle skonstruowane zapytanie/Zły token</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>Źle skonstruowane zapytanie/Zły token</p></div><div><p><b>400</b></p><div class="code-block detached" id="-mqsrst_20"><pre><code class="language-json">{
+    &quot;message&quot;: &quot;Invalid query or token&quot;
+}</code></pre></div></div></section><section class="api-section"><div class="api-block api-grey-block"><p><span class="api-status-code api-code-red">404</span><b>Nie znaleziono użytkownika</b></p><p class="api-content-type"><span><b>Content type</b></span></p><p>Nie znaleziono użytkownika</p></div><div><p><b>404</b></p><div class="code-block detached" id="-mqsrst_22"><pre><code class="language-json">{
+    &quot;message&quot;: &quot;Invalid username&quot;
+}</code></pre></div></div></section></section></article></div></section></div></body></html>

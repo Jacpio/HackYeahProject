@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="adoc"
+                 name="API Docs"
+                 start-page="api-docs.md">
+
+    <toc-element topic="api-docs.md"/>
+    <toc-element topic="API-quickstart.md"/>
+    <toc-element topic="API-reference.md">
+        <toc-element toc-title="Users">
+            <toc-element topic="Create-user.md"/>
+            <toc-element topic="Delete-user.md"/>
+            <toc-element topic="Get-user-by-user-name.md"/>
+            <toc-element topic="Get-all-users.md"/>
+            <toc-element topic="Creates-list-of-users-with-given-input-array.md"/>
+            <toc-element topic="Logs-user-into-the-system.md"/>
+            <toc-element topic="Update-user.md"/>
+            <toc-element topic="login-info.md"/>
+        </toc-element>
+    </toc-element>
+</instance-profile>
