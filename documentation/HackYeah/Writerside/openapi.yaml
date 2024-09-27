@@ -78,7 +78,7 @@ paths:
           description: Zły token/zapytanie
         '404':
           description: Brak użytkowników
-  /login/{username}:
+  /login/{id}:
     get:
       tags:
         - user
@@ -90,7 +90,7 @@ paths:
           description: Token uwierzytelniania
           required: true
           schema:
-            type: Strong
+            type: string
       responses:
         '200':
           description: OK
@@ -98,6 +98,27 @@ paths:
           description: Źle skonstruowane zapytanie/Zły token
         '404':
           description: Nie znaleziono użytkownika
+    delete:
+      tags:
+        - user
+      summary: Wylogowywanie
+      description: 'Wylogowywanie'
+      operationId: logoutUser
+      parameters:
+        - name: token
+          in: header
+          description: Token uwierzytelniania
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Źle skonstruowane zapytanie
+
+        '404':
+          description: Źle podany token
         
     put:
       tags:
@@ -128,27 +149,7 @@ paths:
         
 
   /login:
-    delete:
-      tags:
-        - user
-      summary: Wylogowywanie
-      description: 'Wylogowywanie'
-      operationId: logoutUser
-      parameters:
-        - name: token
-          in: header
-          description: Token uwierzytelniania
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
-        '400':
-          description: Źle skonstruowane zapytanie
 
-        '404':
-          description: Źle podany token
         
     post:
       tags:

@@ -1,6 +1,6 @@
 # Wylogowywanie
 
-<api-endpoint openapi-path="./../openapi.yaml" endpoint="/login" method="delete">
+<api-endpoint openapi-path="./../openapi.yaml" endpoint="/login/{id}" method="delete">
 <request>
 <sample title="HTTP">
     GET /api/users/{username} HTTP/1.1

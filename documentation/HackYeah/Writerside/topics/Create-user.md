@@ -9,7 +9,7 @@
   "username": "Waleń",
   "email": "LubimyHejj@pie.pl",
   "password": "Super_tajne_hasło"
-  "two_factor": 1 (or 0)
+  "two_factor": true (or false)
 }
 </sample>
 

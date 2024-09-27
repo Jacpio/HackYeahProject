@@ -1,5 +1,5 @@
 # Pobieranie informacji (prywatnych) użytkownika
-<api-endpoint openapi-path="../openapi.yaml" endpoint="/login/{username}" method="GET">
+<api-endpoint openapi-path="../openapi.yaml" endpoint="/login/{id}" method="GET">
 <request>
 <sample title="HTTP">
     GET /api/users/{username} HTTP/1.1
@@ -13,7 +13,7 @@
     "id": 1,
     "username": "Waleń",
     "email": "LubimyHejj@pie.pl",
-    "verified": 1 (or 0)
+    "verified": true (or false)
 }
 </sample>
 </response>

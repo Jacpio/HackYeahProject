@@ -3,7 +3,7 @@
 <!-- Use multiple <sample> elements inside <request> to provide samples for various programming languages. 
 They will be placed in tabs.Developers can use these samples as templates when making requests to this endpoint. -->
 
-<api-endpoint openapi-path="./../openapi.yaml" endpoint="/login/{username}" method="put">
+<api-endpoint openapi-path="./../openapi.yaml" endpoint="/login/{id}" method="put">
 
 <request>
 
