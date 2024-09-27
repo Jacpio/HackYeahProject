@@ -6,6 +6,7 @@ use Cake\Http\Exception\BadRequestException;
 use Cake\Http\Response;
 use Cake\ORM\TableRegistry;
 use Cake\View\JsonView;
+use Cake\I18n\DateTime;
 
 /**
  * Users Controller
@@ -45,18 +46,30 @@ class LoginController extends AppController
         }
         $userByUsername = $this->Users->find('all',
             [
-                'fields' => ['id', 'username', 'password'],
+                'fields' => ['id', 'username', 'password', 'login_attempts', 'last_login_attempt'],
                 'conditions' => ['username' => $user['username']]
             ]
         )->first();
+
         if (!$userByUsername) {
             return $this->response->withStatus(401)
                 ->withStringBody(json_encode(['message' => 'Invalid username or password']));
         }
+        if ($userByUsername['login_attempts'] > 9) {
+            if ($userByUsername['last_login_attempt']->wasWithinLast('2 minutes')) {
+                return $this->response->withStatus(401)
+                    ->withStringBody(json_encode(['message' => 'Too many login attempts, try again later']));
+            }
+            else {
+                $patchedUser = $this->Users->patchEntity($userByUsername, ['login_attempts' => 0, 'last_login_attempt' => DateTime::now()]);
+                $this->Users->save($patchedUser);
+            }
+        }
+
         if (password_verify($user['password'], $userByUsername['password'])) {
             $token = uniqid('', true);
             $userByID = $this->Users->get($userByUsername['id']);
-            $userWithToken = $this->Users->patchEntity($userByID, ['token' => $token]);
+            $userWithToken = $this->Users->patchEntity($userByID, ['token' => $token, 'login_attempts' => 0]);
 
             if (!$this->Users->save($userWithToken)) {
                 return $this->response->withStatus(500)
@@ -67,6 +80,14 @@ class LoginController extends AppController
                 ->withDisabledCache()
                 ->withStringBody(json_encode(['token' => $token, 'userdata' => $userWithToken]));
         } else {
+            $currentAttempts = intval($userByUsername['login_attempts']);
+            $currentAttempts = $currentAttempts + 1;
+            $patchedUser = $this->Users->patchEntity($userByUsername, ['login_attempts' => (int)$currentAttempts, 'last_login_attempt' => DateTime::now()]);
+
+            if ($this->Users->save($patchedUser)) {
+
+            } else {
+            }
             return $this->response->withStatus(401)
                 ->withStringBody(json_encode(['message' => 'Invalid username or password']));
         }
@@ -116,8 +137,8 @@ class LoginController extends AppController
                         $this->Users->patchEntity($user, ['username' => $newUserName]);
                         if ($this->Users->save($user)) {
                             return $this->response->withStatus(200)
-                            ->withStringBody(json_encode(["message" => "Name has been updated to " . $newUserName]));
-                        }else{
+                                ->withStringBody(json_encode(["message" => "Name has been updated to " . $newUserName]));
+                        } else {
                             return $this->response->withStatus(500)
                                 ->withStringBody(json_encode(["message" => "Internal Server Error"]));
                         }
@@ -153,7 +174,8 @@ class LoginController extends AppController
             ->withStatus(400)
             ->withStringBody(json_encode(['message' => 'Invalid query']));
     }
-    public function options() : Response
+
+    public function options(): Response
     {
         return $this->response;
     }
