@@ -6,6 +6,26 @@
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="App\Test\" />
       <sourceFolder url="file://$MODULE_DIR$/tests/TestCase" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/vendor/cakephp/cakephp/tests" isTestSource="true" packagePrefix="Cake\Test\" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/instantiator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/lexer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/jms/metadata" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/jms/serializer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/jms/serializer-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/event-dispatcher" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/cache-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/dependency-injection" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/error-handler" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/framework-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-foundation" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-kernel" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php83" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/routing" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/var-dumper" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/var-exporter" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

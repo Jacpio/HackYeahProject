@@ -15,6 +15,8 @@ use Cake\ORM\Entity;
  * @property int $points
  * @property bool $two_factor
  * @property string|null $token
+ * @property int $login_attempts
+ * @property \Cake\I18n\DateTime $last_login_attempt
  * @property \Cake\I18n\DateTime $created
  * @property bool|null $verified
  * @property int permission_level
@@ -37,6 +39,8 @@ class User extends Entity
         'points' => true,
         'two_factor' => true,
         'token' => true,
+        'login_attempts' => true,
+        'last_login_attempt' => true,
         'created' => true,
         'verified' => true,
         'permission_level' => true,

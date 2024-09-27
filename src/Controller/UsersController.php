@@ -18,7 +18,7 @@ use Cake\Mailer\Mailer;
 class UsersController extends AppController
 {
     private string $encryption_method = 'AES-256-CBC';
-    private string $key = 'NIGGAGKGKROTYREQWSAZXCVFGHJKLMNB'; // The key used for encryption
+    private string $key = 'NIGGAGKGKROTYREQWSAZXCVFGHJKLMNB';
     private string $iv = '1928384750293847';
 
     public function initialize(): void

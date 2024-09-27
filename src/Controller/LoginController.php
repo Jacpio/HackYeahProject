@@ -6,7 +6,7 @@ use Cake\Http\Exception\BadRequestException;
 use Cake\Http\Response;
 use Cake\ORM\TableRegistry;
 use Cake\View\JsonView;
-
+use Cake\I18n\DateTime;
 /**
  * Users Controller
  *
@@ -66,7 +66,12 @@ class LoginController extends AppController
                 ->withHeader('X-Expires-After', '3600')
                 ->withDisabledCache()
                 ->withStringBody(json_encode(['token' => $token, 'userdata' => $userWithToken]));
-        } else {
+        }
+        else {
+            $currentAttempts = $userByUsername['login_attempts'];
+            $this->Users->patchEntity($userByUsername, ['login_attempts' => (int)$currentAttempts + 1, 'last_login_attempt' => DateTime::now()]);
+
+            $this->Users->save($userByUsername);
             return $this->response->withStatus(401)
                 ->withStringBody(json_encode(['message' => 'Invalid username or password']));
         }
