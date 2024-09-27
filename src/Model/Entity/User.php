@@ -17,6 +17,7 @@ use Cake\ORM\Entity;
  * @property string|null $token
  * @property int $login_attempts
  * @property \Cake\I18n\DateTime $last_login_attempt
+ * @property int $two_factor_code
  * @property \Cake\I18n\DateTime $created
  * @property bool|null $verified
  * @property int permission_level
@@ -41,6 +42,7 @@ class User extends Entity
         'token' => true,
         'login_attempts' => true,
         'last_login_attempt' => true,
+        'two_factor_code' => true,
         'created' => true,
         'verified' => true,
         'permission_level' => true,

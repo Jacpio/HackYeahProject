@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Cake\Http\Exception\BadRequestException;
 use Cake\Http\Response;
+use Cake\Mailer\Mailer;
 use Cake\ORM\TableRegistry;
 use Cake\View\JsonView;
 use Cake\I18n\DateTime;
@@ -67,7 +68,21 @@ class LoginController extends AppController
         }
 
         if (password_verify($user['password'], $userByUsername['password'])) {
-            $token = uniqid('', true);
+            if ($userByUsername['two_factor'] == true) {
+                $code = rand(10000, 99999);
+                $userNew = $this->Users->patchEntity($userByUsername, ['two_factor_code' => $code]);
+                $this->Users->save($userNew);
+
+                $mailer = new Mailer('default');
+                $mailer->setFrom(['MS_JDADuV@trial-3vz9dlepqmp4kj50.mlsender.net' => 'My Site'])
+                    ->setTo($user->email)
+                    ->setEmailFormat('html')
+                    ->setSubject('Verify mail')
+                    ->deliver($code);
+                return $this->response->withStatus(213)
+                    ->withStringBody(json_encode(['message' => 'code for two factor sent to email']));
+            }
+            $token = $this->GenerateToken();
             $userByID = $this->Users->get($userByUsername['id']);
             $userWithToken = $this->Users->patchEntity($userByID, ['token' => $token, 'login_attempts' => 0]);
 
@@ -92,7 +107,29 @@ class LoginController extends AppController
                 ->withStringBody(json_encode(['message' => 'Invalid username or password']));
         }
     }
+    private function GenerateToken(): string {
+        return uniqid('', true);
+    }
+    public function TwoFactorAuth($id) {
+        $this->request->allowMethod(['post']);
+        try {
+            $data = $this->request->getData();
+        } catch (BadRequestException $e) {
+            return $this->response->withStatus(400)
+                ->withStringBody(json_encode(['message' => 'Invalid query']));
+        }
+        $user = $this->Users->get('id');
+        if (!$user){
+            return $this->response->withStatus(400)
+                ->withStringBody(json_encode(['message' => 'Invalid query']));
+        }
+        if ($user['two_factor_code'] == $data['code']) {
+            $token = $this->GenerateToken();
+            $userToken = $this->Users->patchEntity($user, ['token' => $token]);
+            $this->Users->save($userToken);
+        }
 
+    }
     public function deleteToken($id = null): Response
     {
         $token = $this->request->getHeader('Authorization');
