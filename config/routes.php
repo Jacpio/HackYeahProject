@@ -52,6 +52,13 @@ return function (RouteBuilder $routes): void {
 
             $b->connect('/twoFactorAuth/{id}', ['controller' => 'Login', 'action' => 'TwoFactorAuth', '_method' => 'POST'])->setPass(['id']);
 
+            $b->connect('/expenses/{user_id}', ['controller' => 'Expenses', 'action' => 'index', '_method' => 'GET'])->setPass(['user_id']);
+            $b->connect('/expenses/{user_id}/{expense_id}', ['controller' => 'Expenses', 'action' => 'view', '_method' => 'GET'])->setPass(['user_id', 'expense_id']);
+            $b->connect('/expenses/{user_id}', ['controller' => 'Expenses', 'action' => 'add', '_method' => 'POST'])->setPass(['user_id']);
+            $b->connect('/expenses/{user_id}/{expense_id}', ['controller' => 'Expenses', 'action' => 'edit', '_method' => 'PUT'])->setPass(['user_id', 'expense_id']);
+            $b->connect('/expenses/{user_id}/{expense_id}', ['controller' => 'Expenses', 'action' => 'delete', '_method' => 'DELETE'])->setPass(['user_id', 'expense_id']);
+
+
             $b->connect('/docs/', ['controller' => 'Docs', 'action' => 'index', '_method' => 'GET']);
         });
         $builder->connect('/pages/*', 'Pages::display');
