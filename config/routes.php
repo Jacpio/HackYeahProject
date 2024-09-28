@@ -66,6 +66,8 @@ return function (RouteBuilder $routes): void {
             $b->connect('/curr/{currency}', ['controller' => 'Currency', 'action'=>'view', '_method' => 'GET'])->setPass(['currency']);
 
             $b->connect('/ores/{id}', ['controller' => 'Ores', 'action' => 'view', '_method' => 'GET'])->setPass(['id']);
+
+            $b->connect('/bonds/{id}', ['controller' => 'Bonds', 'action' => 'view', '_method' => 'GET'])->setPass(['id']);
         });
         $builder->connect('/pages/*', 'Pages::display');
 
