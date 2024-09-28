@@ -47,7 +47,7 @@ class LoginController extends AppController
         }
         $userByUsername = $this->Users->find('all',
             [
-                'fields' => ['id', 'username', 'password', 'login_attempts', 'last_login_attempt'],
+                'fields' => ['id', 'username', 'password', 'login_attempts', 'last_login_attempt', 'two_factor', 'email'],
                 'conditions' => ['username' => $user['username']]
             ]
         )->first();
@@ -70,18 +70,19 @@ class LoginController extends AppController
         if (password_verify($user['password'], $userByUsername['password'])) {
             if ($userByUsername['two_factor'] == true) {
                 $code = rand(10000, 99999);
-                $userNew = $this->Users->patchEntity($userByUsername, ['two_factor_code' => $code]);
+                $userNew = $this->Users->patchEntity($userByUsername, ['two_factor_code' => $code, 'auth_date' => DateTime::now()]);
                 $this->Users->save($userNew);
 
                 $mailer = new Mailer('default');
                 $mailer->setFrom(['MS_JDADuV@trial-3vz9dlepqmp4kj50.mlsender.net' => 'My Site'])
-                    ->setTo($user->email)
+                    ->setTo($userNew->email)
                     ->setEmailFormat('html')
                     ->setSubject('Verify mail')
                     ->deliver($code);
                 return $this->response->withStatus(213)
                     ->withStringBody(json_encode(['message' => 'code for two factor sent to email']));
             }
+
             $token = $this->GenerateToken();
             $userByID = $this->Users->get($userByUsername['id']);
             $userWithToken = $this->Users->patchEntity($userByID, ['token' => $token, 'login_attempts' => 0]);
@@ -110,23 +111,35 @@ class LoginController extends AppController
     private function GenerateToken(): string {
         return uniqid('', true);
     }
-    public function TwoFactorAuth($id) {
+    public function twoFactorAuth($id) {
         $this->request->allowMethod(['post']);
+
         try {
             $data = $this->request->getData();
         } catch (BadRequestException $e) {
             return $this->response->withStatus(400)
                 ->withStringBody(json_encode(['message' => 'Invalid query']));
         }
-        $user = $this->Users->get('id');
+
+        $user = $this->Users->get($id);
+
         if (!$user){
             return $this->response->withStatus(400)
                 ->withStringBody(json_encode(['message' => 'Invalid query']));
         }
+
         if ($user['two_factor_code'] == $data['code']) {
             $token = $this->GenerateToken();
-            $userToken = $this->Users->patchEntity($user, ['token' => $token]);
+            $userToken = $this->Users->patchEntity($user, ['token' => (int)$token, 'auth_date' => null, 'two_factor_code' => null]);
             $this->Users->save($userToken);
+            return $this->response->withStatus(200)
+                ->withHeader('X-Expires-After', '3600')
+                ->withDisabledCache()
+                ->withStringBody(json_encode(['token' => $token, 'userdata' => $userToken]));
+        }
+        else {
+            return $this->response->withStatus(401)
+                ->withStringBody(json_encode(['message' => 'Invalid auth code']));
         }
 
     }
