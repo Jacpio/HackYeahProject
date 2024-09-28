@@ -2,7 +2,8 @@
 declare(strict_types=1);
 
 namespace App\Controller;
-
+use Cake\ORM\Exception\RecordNotFoundException;
+use Cake\Http\Exception\NotFoundException;
 /**
  * Bonds Controller
  *
@@ -10,6 +11,16 @@ namespace App\Controller;
  */
 class BondsController extends AppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->response = $this->response->withHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+            ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+            ->withHeader('Access-Control-Allow-Credentials', 'true')
+            ->withType('application/json');
+    }
+
     /**
      * Index method
      *
@@ -17,10 +28,6 @@ class BondsController extends AppController
      */
     public function index()
     {
-        $query = $this->Bonds->find();
-        $bonds = $this->paginate($query);
-
-        $this->set(compact('bonds'));
     }
 
     /**
@@ -32,69 +39,19 @@ class BondsController extends AppController
      */
     public function view($id = null)
     {
-        $bond = $this->Bonds->get($id, contain: []);
-        $this->set(compact('bond'));
-    }
+        try {
+            // Try to get the bond by ID
+            $bond = $this->Bonds->get($id);
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $bond = $this->Bonds->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $bond = $this->Bonds->patchEntity($bond, $this->request->getData());
-            if ($this->Bonds->save($bond)) {
-                $this->Flash->success(__('The bond has been saved.'));
+            // Return the bond if found
+            return $this->response
+                ->withStatus(200)
+                ->withType('application/json')
+                ->withStringBody(json_encode($bond));
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The bond could not be saved. Please, try again.'));
+        } catch (RecordNotFoundException $e) {
+            // Catch the RecordNotFoundException and return a 404 response
+            throw new NotFoundException(__('Bond not found'));
         }
-        $this->set(compact('bond'));
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Bond id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $bond = $this->Bonds->get($id, contain: []);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $bond = $this->Bonds->patchEntity($bond, $this->request->getData());
-            if ($this->Bonds->save($bond)) {
-                $this->Flash->success(__('The bond has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The bond could not be saved. Please, try again.'));
-        }
-        $this->set(compact('bond'));
-    }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Bond id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $bond = $this->Bonds->get($id);
-        if ($this->Bonds->delete($bond)) {
-            $this->Flash->success(__('The bond has been deleted.'));
-        } else {
-            $this->Flash->error(__('The bond could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
     }
 }
