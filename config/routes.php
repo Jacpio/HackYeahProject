@@ -60,6 +60,10 @@ return function (RouteBuilder $routes): void {
 
 
             $b->connect('/docs/', ['controller' => 'Docs', 'action' => 'index', '_method' => 'GET']);
+            $b->connect('/curr/', ['controller' => 'Currency', 'action'=>'index', '_method' => 'GET']);
+            $b->connect('/curr/{currency}', ['controller' => 'Currency', 'action'=>'view', '_method' => 'GET'])->setPass(['currency']);
+
+            $b->connect('/ores/{id}', ['controller' => 'Ores', 'action' => 'view', '_method' => 'GET'])->setPass(['id']);
         });
         $builder->connect('/pages/*', 'Pages::display');
 
