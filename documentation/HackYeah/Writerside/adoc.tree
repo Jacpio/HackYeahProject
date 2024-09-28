@@ -20,4 +20,7 @@
             <toc-element topic="login-info.md"/>
         </toc-element>
     </toc-element>
+    <toc-element topic="Expenses.md">
+        <toc-element topic="Pobieranie-wszystkich-postów.md"/>
+    </toc-element>
 </instance-profile>
