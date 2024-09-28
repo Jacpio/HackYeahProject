@@ -34,7 +34,6 @@ class CurrencyController extends AppController
 
     public function index()
     {
-
     }
 
     public function view($currency = null)
