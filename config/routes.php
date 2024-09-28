@@ -51,6 +51,9 @@ return function (RouteBuilder $routes): void {
             $b->connect('/login/{id}',['controller' => 'Login', 'action' => 'getInformation', '_method' => 'GET'])->setPass(['id']);
 
             $b->connect('/twoFactorAuth/{id}', ['controller' => 'Login', 'action' => 'TwoFactorAuth', '_method' => 'POST'])->setPass(['id']);
+
+            $b->connect('/curr/', ['controller' => 'Currency', 'action'=>'index', '_method' => 'GET']);
+            $b->connect('/curr/{currency}', ['controller' => 'Currency', 'action'=>'view', '_method' => 'GET'])->setPass(['currency']);
         });
         $builder->connect('/pages/*', 'Pages::display');
 
