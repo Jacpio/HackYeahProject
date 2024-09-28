@@ -46,6 +46,9 @@ class ExpensesTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
         ]);
+        $this->belongsTo('ECategory', [
+            'foreignKey' => 'category_id',
+        ]);
     }
 
     /**
@@ -62,12 +65,17 @@ class ExpensesTable extends Table
             ->allowEmptyString('name');
 
         $validator
-            ->decimal('currency')
+            ->numeric('currency')
             ->allowEmptyString('currency');
 
         $validator
             ->integer('user_id')
             ->allowEmptyString('user_id');
+
+        $validator
+            ->integer('category_id')
+            ->requirePresence('category_id', 'create')
+            ->notEmptyString('category_id');
 
         return $validator;
     }

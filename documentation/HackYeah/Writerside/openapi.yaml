@@ -23,6 +23,23 @@ tags:
   - name: user
     description: Operations about user
 paths:
+  /expenses/{user_id}:
+    get:
+      tags:
+        - expense
+      summary: get expenses
+      description: fetch exponses for user
+      operationId: getExponses
+      requestBody:
+        
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Not Authorized
+        '404':
+          description: Expenses have not been found
+
   /users:
     post:
       tags:

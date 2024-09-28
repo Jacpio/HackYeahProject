@@ -6,17 +6,14 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Expense Entity
+ * ECategory Entity
  *
  * @property int $id
  * @property string|null $name
- * @property float|null $currency
- * @property int|null $user_id
- * @property int $category_id
  *
- * @property \App\Model\Entity\User $user
+ * @property \App\Model\Entity\Expense[] $expenses
  */
-class Expense extends Entity
+class ECategory extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -29,13 +26,7 @@ class Expense extends Entity
      */
     protected array $_accessible = [
         'name' => true,
-        'currency' => true,
-        'user_id' => true,
-        'category_id' => true,
-        'user' => true,
-    ];
-    protected array $_hidden = [
-        'category_id',
-        "user_id"
+        'expenses' => true,
+        'id' => true,
     ];
 }

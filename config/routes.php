@@ -57,6 +57,8 @@ return function (RouteBuilder $routes): void {
             $b->connect('/expenses/{user_id}', ['controller' => 'Expenses', 'action' => 'add', '_method' => 'POST'])->setPass(['user_id']);
             $b->connect('/expenses/{user_id}/{expense_id}', ['controller' => 'Expenses', 'action' => 'edit', '_method' => 'PUT'])->setPass(['user_id', 'expense_id']);
             $b->connect('/expenses/{user_id}/{expense_id}', ['controller' => 'Expenses', 'action' => 'delete', '_method' => 'DELETE'])->setPass(['user_id', 'expense_id']);
+            $b->connect('/expenses/category', ['controller' => 'Expenses', 'action' => 'getCategories', '_method' => 'GET']);
+            $b->connect('/expenses', ['controller' => 'Expenses', 'action' => 'options', '_method' => 'OPTIONS']);
 
 
             $b->connect('/docs/', ['controller' => 'Docs', 'action' => 'index', '_method' => 'GET']);
