@@ -10,6 +10,8 @@
   "email": "LubimyHejj@pie.pl",
   "password": "Super_tajne_hasło"
   "two_factor": true (or false)
+  "is_adult": true (or false)
+  "is_family": true (or false)
 }
 </sample>
 

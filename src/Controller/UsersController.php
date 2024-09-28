@@ -5,10 +5,7 @@ namespace App\Controller;
 
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Http\Response;
-use Cake\ORM\TableRegistry;
 use Cake\View\JsonView;
-use http\Exception\BadMethodCallException;
-use Cake\Mailer\Mailer;
 
 /**
  * Users Controller
@@ -53,7 +50,7 @@ class UsersController extends AppController
         } else {
             return $this->response
                 ->withStatus(404)
-                ->withStringBody(json_encode(['message' => "Users have not been found"]));
+                ->withStringBody(json_encode(['message' => 'Users have not been found']));
         }
     }
 
@@ -64,7 +61,7 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null)
     {
         $user = $this->Users->find()->select(['id', 'username', 'points'])->where(['id' => $id])
             ->enableHydration(true)->first();
@@ -75,7 +72,7 @@ class UsersController extends AppController
         } else {
             return $this->response
                 ->withStatus(404)
-                ->withStringBody(json_encode(['message' => "User has not been found"]));
+                ->withStringBody(json_encode(['message' => 'User has not been found']));
         }
     }
 
@@ -83,55 +80,82 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEntity($this->request->getData());
         if ($this->request->is('post')) {
-
-            $user = $this->Users->patchEntity($user, $this->request->getData());
             $user->permission_level = 0;
             $user->points = 0;
             $user->verified = 0;
-
+            $isFamily = boolval($this->request->getData('is_family'));
+            $family_id = intval($this->request->getData('family_id'));
+            if (($isFamily == null || !$isFamily) && ($family_id == 0 || $family_id == null)) {
+                $user->family_id = 0;
+            } elseif ($family_id > 0) {
+                $user->family_id = $family_id;
+            } else {
+                try {
+                    $max_family_id = $this->Users->find()->select(['max_family_id'  => 'MAX(users.family_id)'])->firstOrFail();
+                    $user->family_id = $max_family_id->max_family_id + 1;
+                } catch (RecordNotFoundException $ex) {
+                    return $this->response
+                        ->withStatus(500)
+                        ->withStringBody(json_encode(['message' => 'Internal Server Error']));
+                }
+            }
+            if ($family_id != null && $family_id != 0 &&  $this->Users->find()->select('id')->where(["family_id"=> $family_id])->count() == 0) {
+                return $this->response
+                    ->withStatus(404)
+                    ->withStringBody(json_encode(['message' => 'Family group has not been found']));
+            }
+            if ($user->is_adult === null) {
+                return $this->response
+                    ->withStatus(400)
+                    ->withStringBody(json_encode(['message' => 'is_adult field is required', 'is_adult' => $user->is_adult]));
+            }
             if ($this->Users->save($user)) {
-
                 $code = base64_encode(openssl_encrypt((string)$user->id, $this->encryption_method, $this->key, 0, $this->iv));
 
-                $mailer = new Mailer('default');
-                $mailer->setFrom(['MS_JDADuV@trial-3vz9dlepqmp4kj50.mlsender.net' => 'My Site'])
-                    ->setTo($user->email)
-                    ->setEmailFormat('html')
-                    ->setSubject('Verify mail')
-                    ->deliver('localhost:8765/api/verifyMail/'.rtrim($code, '='));
+//                $mailer = new Mailer('default');
+//                $mailer->setFrom(['MS_JDADuV@trial-3vz9dlepqmp4kj50.mlsender.net' => 'My Site'])
+//                    ->setTo($user->email)
+//                    ->setEmailFormat('html')
+//                    ->setSubject('Verify mail')
+//                    ->deliver('localhost:8765/api/verifyMail/' . rtrim($code, '='));
+
                 return $this->response
                     ->withStatus(201)
-                    ->withStringBody(json_encode(["message" => "User has been created"]));
+                    ->withStringBody(json_encode(['message' => 'User has been created']));
             } else {
                 return $this->response
                     ->withStatus(400)
-                    ->withStringBody(json_encode(["message" => "User has not been created"]));
+                    ->withStringBody(json_encode(['message' => $user->getErrors()]));
             }
         } else {
             return $this->response
                 ->withStatus(405)
-                ->withStringBody(json_encode(["message" => "Bad method request"]));
+                ->withStringBody(json_encode(['message' => 'Bad method request']));
         }
-
     }
-    public function confirmEmail($code) {
+
+    public function confirmEmail($code)
+    {
         $id = openssl_decrypt(base64_decode($code), $this->encryption_method, $this->key, 0, $this->iv);
 
         $user = $this->Users->get($id);
-        if ($user->verified == true) return $this->response->withStatus(404)->withstringBody(json_encode(["message" => "Email has already been verified"]));
+        if ($user->verified == true) {
+            return $this->response->withStatus(404)->withstringBody(json_encode(['message' => 'Email has already been verified']));
+        }
         $user->set('verified', true);
         if ($this->Users->save($user)) {
             return $this->response
                 ->withStatus(200)
                 ->withStringBody(json_encode([
-                    "message" => "Email has been verified",
-                    "user" => $user
+                    'message' => 'Email has been verified',
+                    'user' => $user,
                 ]));
         }
+
         return $this->response
             ->withStatus(404)
             ->withStringBody(json_encode([
-                "message" => "Invalid verification code",
+                'message' => 'Invalid verification code',
             ]));
     }
 
@@ -142,7 +166,7 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete(?string $id = null)
     {
         if ($id == null) {
             $id = $this->request->getParam('id');
@@ -153,19 +177,20 @@ class UsersController extends AppController
         } catch (RecordNotFoundException $exception) {
             return $this->response
                 ->withStatus(404)
-                ->withStringBody(json_encode(["message" => "User have not been found"]));
+                ->withStringBody(json_encode(['message' => 'User have not been found']));
         }
         if ($this->Users->delete($user)) {
             return $this->response
                 ->withStatus(200)
-                ->withStringBody(json_encode(["message" => "User have been deleted"]));
+                ->withStringBody(json_encode(['message' => 'User have been deleted']));
         } else {
             return $this->response
                 ->withStatus(400)
-                ->withStringBody(json_encode(["message" => "User have not been deleted"]));
+                ->withStringBody(json_encode(['message' => 'User have not been deleted']));
         }
     }
-    public function options() : Response
+
+    public function options(): Response
     {
         return $this->response;
     }

@@ -21,6 +21,8 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\DateTime $created
  * @property bool|null $verified
  * @property int permission_level
+ * @property boolean is_adult
+ * @property int family_id
  */
 class User extends Entity
 {
@@ -46,6 +48,8 @@ class User extends Entity
         'created' => true,
         'verified' => true,
         'permission_level' => true,
+        'is_adult' => true,
+        'family_id' => true,
     ];
 
     /**
@@ -53,11 +57,13 @@ class User extends Entity
      *
      * @var list<string>
      */
-    protected function _setPassword(string $password){
+    protected function _setPassword(string $password)
+    {
         if (strlen($password) > 0) {
             return password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
         }
     }
+
     protected array $_hidden = [
         'password',
         'token',
