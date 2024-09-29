@@ -13,6 +13,8 @@ use Cake\ORM\Entity;
  * @property float|null $currency
  * @property int|null $user_id
  * @property int $category_id
+ * @property float $deposit
+ * @property \Cake\I18n\Date $date
  *
  * @property \App\Model\Entity\User $user
  */
@@ -33,9 +35,11 @@ class Expense extends Entity
         'user_id' => true,
         'category_id' => true,
         'user' => true,
+        'date' => true,
+        'deposit' => true,
     ];
     protected array $_hidden = [
         'category_id',
-        "user_id"
+        'user_id',
     ];
 }
