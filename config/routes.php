@@ -68,6 +68,7 @@ return function (RouteBuilder $routes): void {
             $b->connect('/ores/{id}', ['controller' => 'Ores', 'action' => 'view', '_method' => 'GET'])->setPass(['id']);
 
             $b->connect('/bonds/{id}', ['controller' => 'Bonds', 'action' => 'view', '_method' => 'GET'])->setPass(['id']);
+            $b->connect('/bonds/interest/{months}', ['controller' => 'Bonds', 'action' => 'calcInterest', '_method' => 'POST'])->setPass(['months']);
 
             $b->connect('/stocks/{id}', ['controller' => 'Stocks', 'action' => 'view', '_method' => 'GET'])->setPass(['id']);
         });
