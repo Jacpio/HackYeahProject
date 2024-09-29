@@ -53,12 +53,17 @@ return function (RouteBuilder $routes): void {
             $b->connect('/twoFactorAuth/{id}', ['controller' => 'Login', 'action' => 'TwoFactorAuth', '_method' => 'POST'])->setPass(['id']);
 
             $b->connect('/expenses/{user_id}', ['controller' => 'Expenses', 'action' => 'index', '_method' => 'GET'])->setPass(['user_id']);
-            $b->connect('/expenses/{user_id}/{expense_id}', ['controller' => 'Expenses', 'action' => 'view', '_method' => 'GET'])->setPass(['user_id', 'expense_id']);
+            $b->connect('/expenses/{user_id}/expense/{expense_id}', ['controller' => 'Expenses', 'action' => 'view', '_method' => 'GET'])->setPass(['user_id', 'expense_id']);
             $b->connect('/expenses/{user_id}', ['controller' => 'Expenses', 'action' => 'add', '_method' => 'POST'])->setPass(['user_id']);
-            $b->connect('/expenses/{user_id}/{expense_id}', ['controller' => 'Expenses', 'action' => 'edit', '_method' => 'PUT'])->setPass(['user_id', 'expense_id']);
-            $b->connect('/expenses/{user_id}/{expense_id}', ['controller' => 'Expenses', 'action' => 'delete', '_method' => 'DELETE'])->setPass(['user_id', 'expense_id']);
-            $b->connect('/expenses/category', ['controller' => 'Expenses', 'action' => 'getCategories', '_method' => 'GET']);
+            $b->connect('/expenses/{user_id}/expense/{expense_id}', ['controller' => 'Expenses', 'action' => 'edit', '_method' => 'PUT'])->setPass(['user_id', 'expense_id']);
+            $b->connect('/expenses/{user_id}/expense/{expense_id}', ['controller' => 'Expenses', 'action' => 'delete', '_method' => 'DELETE'])->setPass(['user_id', 'expense_id']);
+            $b->connect('/expenses/categories', ['controller' => 'Expenses', 'action' => 'getCategories', '_method' => 'GET']);
             $b->connect('/expenses', ['controller' => 'Expenses', 'action' => 'options', '_method' => 'OPTIONS']);
+
+            $b->connect('/expenses/calc/{user_id}', ['controller' => 'Expenses', 'action' => 'calculateExpenses', '_method' => 'GET'])->setPass(['user_id']);
+            $b->connect('/expenses/calc/{user_id}/category/{category_id}', ['controller' => 'Expenses', 'action' => 'calculateExpensesByCategory', '_method' => 'GET'])->setPass(['user_id','category_id']);
+            $b->connect('/expenses/calc/paid/{user_id}', ['controller' => 'Expenses', 'action' => 'calculatePaidExpenses', '_method' => 'GET'])->setPass(['user_id']);
+            $b->connect('/expenses/calc/paid/avg/{user_id}', ['controller' => 'Expenses', 'action' => 'calculatePaidExpensesAvg', '_method' => 'GET'])->setPass(['user_id']);
 
 
             $b->connect('/docs/', ['controller' => 'Docs', 'action' => 'index', '_method' => 'GET']);

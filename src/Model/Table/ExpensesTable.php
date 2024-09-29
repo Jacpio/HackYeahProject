@@ -65,7 +65,7 @@ class ExpensesTable extends Table
             ->allowEmptyString('name');
 
         $validator
-            ->numeric('currency')
+            ->decimal('currency')
             ->allowEmptyString('currency');
 
         $validator
@@ -76,6 +76,14 @@ class ExpensesTable extends Table
             ->integer('category_id')
             ->requirePresence('category_id', 'create')
             ->notEmptyString('category_id');
+        $validator
+            ->decimal('deposit')
+            ->requirePresence('deposit', 'create')
+            ->notEmptyString('deposit');
+        $validator
+            ->date('date')
+            ->requirePresence('date', 'create')
+            ->notEmptyString('date');
 
         return $validator;
     }
