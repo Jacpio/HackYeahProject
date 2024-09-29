@@ -19,6 +19,7 @@ class BondsController extends AppController
             ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
             ->withHeader('Access-Control-Allow-Credentials', 'true')
             ->withType('application/json');
+        $this->loadComponent('BondsMath');
     }
 
     /**
@@ -53,5 +54,10 @@ class BondsController extends AppController
             // Catch the RecordNotFoundException and return a 404 response
             throw new NotFoundException(__('Bond not found'));
         }
+    }
+    public function calcInterest ($months) {
+        $bond = $this->request->getData();
+        $calc = $this->BondsMath->calculateProfit($months, $bond);
+        return $this->response->withStatus(200)->withStringBody(json_encode(['result' => $calc]));
     }
 }
